@@ -15,44 +15,50 @@ const Resturants = (props) => {
     });
   };
   const resturantData = [Data];
-  const featuredID = resturantData.map(item => item.featuredRestaurants.map(el => el.restaurantId))
-  console.log(featuredID)
-  
+  const featuredID = resturantData.map((item) =>
+    item.featuredRestaurants.map((el) => el.restaurantId)
+  );
+  console.log(featuredID);
 
   return (
-      <Fragment>
-    <div>
-    <h2>Featured Resturant</h2>
-    <div className={classes.cards}>
-        {resturantData.map((item) =>        
-          item.restaurants.filter((res) => 
-          featuredID.includes(res.id) && (
-            <Card
-              key={res.id}
-              heading={res.name}
-              image={res.imageSmallUrl}
-              text={res.description}
-            />
-          ))
-        )}
+    <Fragment>
+      <div>
+        <h2>Featured Resturant</h2>
+        <div className={classes.cards}>
+          {resturantData.map((item) =>
+            item.restaurants.map((res) => {
+              for (let i = 0; i < featuredID.length; i++) {
+                if (featuredID[i] == res.id) {
+                  return (
+                    <Card
+                      key={res.id}
+                      heading={res.name}
+                      image={res.imageSmallUrl}
+                      text={res.description}
+                    />
+                  );
+                }
+              }
+            })
+          )}
+        </div>
       </div>
-    </div>
-    <div>
-     <h2>All Resturants</h2>      
-      <div className={classes.cards}>
-        {resturantData.map((item) =>
-          item.restaurants.map((res) => (
-            <Card
-              key={res.id}
-              heading={res.name}
-              image={res.imageSmallUrl}
-              text={res.description}
-            />
-          ))
-        )}
+      <div>
+        <h2>All Resturants</h2>
+        <div className={classes.cards}>
+          {resturantData.map((item) =>
+            item.restaurants.map((res) => (
+              <Card
+                key={res.id}
+                heading={res.name}
+                image={res.imageSmallUrl}
+                text={res.description}
+              />
+            ))
+          )}
+        </div>
       </div>
-      </div>
-      </Fragment>
+    </Fragment>
   );
 };
 
