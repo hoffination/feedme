@@ -1,25 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import Header from "../src/components/Layout/Header";
+import React, { useState } from "react";
+import Cart from "./components/Cart/Cart";
+import CartProvider from "./store/cart-provider";
+import Resturants from "./components/Resturants/Resturants";
 
 function App() {
+  const [cartOpen, setCartOpen] = useState(false);
+
+  const cartHandler = () => {
+    setCartOpen(true);
+  };
+
+  const hideCartHandler = () => {
+    setCartOpen(false);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <CartProvider>
+      {cartOpen && <Cart onCloseApp={hideCartHandler} />}
+      <Header onShowCart={cartHandler} />      
+      <Resturants />
+    </CartProvider>
   );
+}
+// Test card
+{
+  /* <main className={classes.container}>
+<div className={classes.resturant}>
+<article className={classes.resturants}>
+  <img className={classes.resturants__img} src="" />
+  <div className={classes.resturants__data}>
+    <h3 className={classes.resturants__name}>Resturant A</h3>
+    <h4 className={classes.resturants__region}>Beautiful Place</h4>
+    <p className={classes.resturants__row}><span>👫</span>60</p>
+    <p className={classes.resturants__row}><span>🗣️</span>150</p>
+    <p className={classes.resturants__row}><span>💰</span>20</p>
+  </div>
+</article>        
+</div>
+</main> */
 }
 
 export default App;
